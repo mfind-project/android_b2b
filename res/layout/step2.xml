@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_gravity="center_horizontal"
+    android:background="@drawable/portrait_bg_2"
+    android:gravity="center_horizontal" >
+
+    <include layout="@layout/top_panel" />
+
+    <Button
+        android:id="@+id/scan_aztec_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@drawable/button"
+        android:gravity="center"
+        android:onClick="scanAZTEC"
+        android:padding="10dp"
+        android:text="@string/scan_aztec"
+        android:textColor="#4331E8" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:gravity="center"
+        android:paddingBottom="40dp"
+        android:paddingLeft="25dp"
+        android:paddingRight="25dp"
+        android:text="@string/instructions_aztec"
+        android:textColor="#FFFFFF"
+        android:textSize="14sp" />
+
+</RelativeLayout>
