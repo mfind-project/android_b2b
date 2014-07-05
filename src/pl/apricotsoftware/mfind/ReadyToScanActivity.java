@@ -1,6 +1,6 @@
 package pl.apricotsoftware.mfind;
 
-import pl.apricotsoftware.mfind.R;
+import pl.apricotsoftware.mfind.MyApplication.TrackerName;
 import pl.apricotsoftware.mfind.utils.ConnectionUtils;
 import android.app.Activity;
 import android.content.Intent;
@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.manateeworks.BarcodeScanner;
 import com.manateeworks.cameraDemo.ActivityCapture;
 
@@ -29,6 +31,15 @@ public class ReadyToScanActivity extends Activity {
 
 		// Toast.makeText(this, "URL: "+mUrl, Toast.LENGTH_LONG).show();
 		// Toast.makeText(this, "token: "+mToken, Toast.LENGTH_LONG).show();
+		setTracker(this.getClass().getSimpleName());
+
+	}
+	
+	private void setTracker(String viewName) {
+		Tracker t = ((MyApplication) getApplication())
+				.getTracker(TrackerName.APP_TRACKER);
+		t.setScreenName(viewName);
+		t.send(new HitBuilders.AppViewBuilder().build());
 	}
 
 	public void scanAZTEC(View view) {

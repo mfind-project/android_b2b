@@ -12,6 +12,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import pl.apricotsoftware.mfind.MyApplication.TrackerName;
 import pl.apricotsoftware.mfind.utils.ConnectionUtils;
 import android.app.Activity;
 import android.content.Intent;
@@ -20,6 +21,9 @@ import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 
 /*
  * Klasa odpowiadająca za przesłanie danych zczytanych z kodu aztec na serwer
@@ -54,6 +58,15 @@ public class SendingAztecActivity extends Activity {
 		// Toast.LENGTH_LONG).show();
 		// Toast.makeText(this, "Wysłany token: " + token,
 		// Toast.LENGTH_LONG).show();
+		setTracker(this.getClass().getSimpleName());
+
+	}
+
+	private void setTracker(String viewName) {
+		Tracker t = ((MyApplication) getApplication())
+				.getTracker(TrackerName.APP_TRACKER);
+		t.setScreenName(viewName);
+		t.send(new HitBuilders.AppViewBuilder().build());
 	}
 
 	@Override

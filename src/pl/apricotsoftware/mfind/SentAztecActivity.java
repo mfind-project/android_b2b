@@ -1,15 +1,16 @@
 package pl.apricotsoftware.mfind;
 
-import pl.apricotsoftware.mfind.R;
-
-import com.manateeworks.BarcodeScanner;
-import com.manateeworks.cameraDemo.ActivityCapture;
-
+import pl.apricotsoftware.mfind.MyApplication.TrackerName;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
+
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+import com.manateeworks.BarcodeScanner;
+import com.manateeworks.cameraDemo.ActivityCapture;
 
 /*
  * Ekran wyświetlany po przesłaniu danych z kodu aztec, umożliwia on rozpoczęcie kolejnego skanowania bądź zamknięcie aplikacji.
@@ -21,6 +22,15 @@ public class SentAztecActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.step3);
+		setTracker(this.getClass().getSimpleName());
+
+	}
+	
+	private void setTracker(String viewName) {
+		Tracker t = ((MyApplication) getApplication())
+				.getTracker(TrackerName.APP_TRACKER);
+		t.setScreenName(viewName);
+		t.send(new HitBuilders.AppViewBuilder().build());
 	}
 
 	public void closeApp(View view) {

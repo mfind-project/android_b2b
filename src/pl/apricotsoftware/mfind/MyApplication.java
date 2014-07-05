@@ -1,6 +1,11 @@
 package pl.apricotsoftware.mfind;
 
+import java.util.HashMap;
+
 import android.app.Application;
+
+import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.analytics.Tracker;
 
 /*
  * Globalny obiekt aplikacji
@@ -34,6 +39,26 @@ public class MyApplication extends Application {
 
 	public void setCAPTURED_CODE_EXTRA(String cAPTURED_CODE_EXTRA) {
 		CAPTURED_CODE_EXTRA = cAPTURED_CODE_EXTRA;
+	}
+	
+	public enum TrackerName {
+		APP_TRACKER, 
+		GLOBAL_TRACKER, 
+		ECOMMERCE_TRACKER, 
+	}
+
+	HashMap<TrackerName, Tracker> mTrackers = new HashMap<TrackerName, Tracker>();
+
+	public synchronized Tracker getTracker(TrackerName trackerId) {
+		if (!mTrackers.containsKey(trackerId)) {
+
+			GoogleAnalytics analytics = GoogleAnalytics.getInstance(this);
+
+			Tracker t = analytics.newTracker(R.xml.global_tracker);
+			mTrackers.put(trackerId, t);
+
+		}
+		return mTrackers.get(trackerId);
 	}
 
 }
